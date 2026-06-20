@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mshauri Capital - Kenyan Asset Analyzer</title>
+    <!-- Tailwind CSS Engine for Interface Architecture -->
+    <script src="https://tailwindcss.com"></script>
+</head>
+<body class="bg-gray-950 text-slate-100 min-h-screen font-sans antialiased p-4 md:p-8">
+
+    <div class="max-w-5xl mx-auto space-y-6">
+        
+        <!-- Header Banner Section -->
+        <header class="flex flex-col md:flex-row justify-between items-start md:items-center bg-gray-900 border border-gray-800 p-6 rounded-2xl shadow-xl gap-4">
+            <div>
+                <h1 class="text-3xl font-black tracking-tight text-emerald-400 flex items-center gap-2">
+                    🇰🇪 Mshauri Capital
+                </h1>
+                <p class="text-slate-400 text-sm mt-1">Serverless investment analyzer evaluating NSE Equities against sovereign debt instruments.</p>
+            </div>
+            <!-- DhowCSD Live Benchmark Tracker Component -->
+            <div class="bg-gray-950 border border-emerald-500/20 px-4 py-3 rounded-xl flex items-center gap-4">
+                <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                <div>
+                    <div class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">CBK 91-Day T-Bill Hurdle Rate</div>
+                    <div class="text-2xl font-black text-emerald-400 flex items-baseline gap-1">
+                        <span id="liveHurdleRate">8.821</span><span class="text-xs font-normal text-slate-400">%</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Workspace Grid Layout -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            
+            <!-- Column 1 & 2: Evaluation Console -->
+            <main class="lg:col-span-2 space-y-6">
+                <!-- Data Query Control Interface -->
+                <div class="bg-gray-900 border border-gray-800 p-6 rounded-2xl shadow-xl">
+                    <h2 class="text-lg font-bold text-slate-200 mb-3">Asset Analysis Console</h2>
+                    <p class="text-slate-400 text-xs mb-4">Input a local security identifier to process valuation spreads against fixed-income baselines.</p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <input id="tickerInput" type="text" placeholder="e.g., SCOM, EQTY, KCB, ABSA" class="flex-1 bg-gray-950 border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 font-mono tracking-wider focus:outline-none focus:border-emerald-500 uppercase transition-all">
+                        <button onclick="processAssetEvaluation()" class="bg-emerald-500 hover:bg-emerald-600 active:scale-95 text-gray-950 font-black px-6 py-3 rounded-xl transition-all shadow-lg shadow-emerald-500/10">
+                            Evaluate Security
+                        </button>
+                    </div>
+                    <p id="statusFeedback" class="text-xs text-slate-400 mt-3 font-medium min-h-[16px]"></p>
+                </div>
+
+                <!-- Dynamic Diagnostic Response Output -->
+                <section id="valuationCard" class="hidden bg-gray-900 border border-emerald-500/30 p-6 rounded-2xl shadow-xl relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-emerald-500/10 text-emerald-400 text-[10px] font-mono px-3 py-1 rounded-bl-xl border-l border-b border-emerald-500/20 uppercase tracking-widest">
+                        Analysis Complete
+                    </div>
+                    
+                    <div class="flex justify-between items-start mb-6">
+                        <div>
+                            <h2 id="outCompanyName" class="text-2xl font-black text-white">Company Name</h2>
+                            <p id="outTicker" class="text-emerald-400 font-mono text-sm font-bold tracking-widest">TICKER</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-[10px] uppercase font-bold tracking-widest text-slate-400 block mb-1">Mshauri Valuation Rating</span>
+                            <div id="outScore" class="text-4xl font-black text-emerald-400">0.0</div>
+                        </div>
+                    </div>
+
+                    <!-- Formula Yield Spread Sub-Grid -->
+                    <div class="grid grid-cols-2 gap-4 bg-gray-950 p-4 rounded-xl border border-gray-800 mb-4">
+                        <div>
+                            <span class="text-[10px] text-slate-400 uppercase font-semibold block">Simulated Dividend Yield</span>
+                            <span id="outDivYield" class="text-lg font-bold text-slate-200">0.00%</span>
+                        </div>
+                        <div>
+                            <span class="text-[10px] text-slate-400 uppercase font-semibold block">Sovereign Debt Spread</span>
+                            <span id="outYieldSpread" class="text-lg font-bold text-amber-400">0.00%</span>
+                        </div>
+                    </div>
+
+                    <div class="border-t border-gray-800 pt-4">
+                        <span class="text-[10px] text-slate-400 uppercase font-semibold block mb-1">Execution Guidance Narrative</span>
+                        <p id="outVerdict" class="text-slate-300 text-sm leading-relaxed font-medium"></p>
+                    </div>
+                </section>
+            </main>
+
+            <!-- Column 3: Secure Logs Administrative Window -->
+            <aside class="bg-gray-900 border border-gray-800 p-6 rounded-2xl shadow-xl flex flex-col">
+                <h3 class="text-lg font-bold text-slate-200 mb-2">Historical Vault Logs</h3>
+                <p class="text-slate-400 text-xs mb-4">Access structural historical query entries synchronized to your data framework endpoints.</p>
+                
+                <!-- Security Access Block -->
+                <div id="authGateBlock" class="space-y-3 my-auto py-6">
+                    <input id="securityKeyField" type="password" placeholder="Enter Administrative Key" class="w-full bg-gray-950 border border-gray-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500 font-mono">
+                    <button onclick="verifySecurityGate()" class="w-full bg-amber-500 hover:bg-amber-600 active:scale-95 text-gray-950 font-black text-sm py-2.5 rounded-xl transition-all shadow-lg shadow-amber-500/10">
+                        Unlock Database Registry
+                    </button>
+                </div>
+
+                <!-- Unlocked History Log Frame -->
+                <div id="unlockedLogFrame" class="hidden flex-1 flex flex-col min-h-0">
+                    <div class="flex justify-between items-center text-[10px] text-slate-400 uppercase font-bold border-b border-gray-800 pb-2 mb-3">
+                        <span>Database Stream Buffer</span>
+                        <button onclick="fetchHistoryRegistry()" class="text-emerald-400 hover:text-emerald-300 underline lowercase font-normal">refresh_feed()</button>
+                    </div>
+                    <ul id="registryDataList" class="space-y-2 overflow-y-auto max-h-72 pr-1 divide-y divide-gray-800">
+                        <!-- Spreadsheet entries print here -->
+                    </ul>
+                </div>
+            </aside>
+        </div>
+
+        <!-- Footnote Segment: Structural Sovereign Implementation Protocol -->
+        <footer class="bg-gray-900 border border-gray-800 p-6 rounded-2xl shadow-xl">
+            <h3 class="text-lg font-bold text-emerald-400 mb-4 flex items-center gap-2">
+                💼 Fixed-Income Capital Procurement Strategy (DhowCSD Pipeline)
+            </h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs">
+                <!-- Node 1 -->
+                <div class="bg-gray-950/60 p-4 rounded-xl border border-gray-800">
+                    <div class="text-emerald-400 font-black text-sm mb-1 uppercase tracking-wider">01 / Profile Setup</div>
+                    <p class="text-slate-300 leading-relaxed">
+                        Establish an investor account through the Central Bank of Kenya's <a href="https://dhowcsd.centralbank.go.ke/" target="_blank" class="text-emerald-400 underline font-semibold">DhowCSD Framework Portal</a>. You must provide a valid National ID, verified KRA PIN documentation, and a commercial bank clearance mandate.
+                    </p>
+                </div>
+
+                <!-- Node 2 -->
+                <div class="bg-gray-950/60 p-4 rounded-xl border border-gray-800">
+                    <div class="text-emerald-400 font-black text-sm mb-1 uppercase tracking-wider">02 / Bidding Logic</div>
+                    <p class="text-slate-300 leading-relaxed">
+                        Submit a <strong>Non-Competitive Tender Request</strong> for the 91-Day auction cycle before Thursday at 2:00 PM. Allocations require capital configurations set in minimum blocks of <strong>Ksh 50,000</strong>.
+                    </p>
+                </div>
+
+                <!-- Node 3 -->
+                <div class="bg-gray-950/60 p-4 rounded-xl border border-gray-800">
+                    <div class="text-emerald-400 font-black text-sm mb-1 uppercase tracking-wider">03 / Discount Clearance</div>
+                    <p class="text-slate-300 leading-relaxed">
+                        CBK issues successful allotments at discount valuations on Friday morning. Capital transfers must be cleared via bank <strong>RTGS Transfer</strong> mechanisms to your designated payment keys prior to Monday at 2:00 PM.
+                    </p>
+                </div>
+            </div>
+            
