@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mshauri Capital - Kenyan Asset Analyzer</title>
     <!-- Tailwind CSS Engine for Interface Architecture -->
-    <link rel="stylesheet" href="https://jsdelivr.net">
     <script src="https://cdn.tailwindcss.com"></script>
 
 </head>
@@ -145,4 +144,54 @@
                     </p>
                 </div>
             </div>
-            
+        </footer>
+        <script>
+function processAssetEvaluation() {
+  const ticker = document.getElementById("tickerInput").value.trim().toUpperCase();
+  const status = document.getElementById("statusFeedback");
+
+  if (!ticker) {
+    status.textContent = "Please enter a valid ticker symbol.";
+    return;
+  }
+
+  // Example: simulate analysis
+  document.getElementById("outCompanyName").textContent = "Safaricom PLC";
+  document.getElementById("outTicker").textContent = ticker;
+  document.getElementById("outScore").textContent = "7.5";
+  document.getElementById("outDivYield").textContent = "5.20%";
+  document.getElementById("outYieldSpread").textContent = "−3.62%";
+  document.getElementById("outVerdict").textContent = "This security offers a moderate yield spread compared to the 91-day T-Bill benchmark.";
+  
+  // Show the valuation card
+  document.getElementById("valuationCard").classList.remove("hidden");
+  status.textContent = "Analysis complete.";
+}
+
+function verifySecurityGate() {
+  const key = document.getElementById("securityKeyField").value;
+  if (key === "admin123") { // Replace with your real logic
+    document.getElementById("authGateBlock").classList.add("hidden");
+    document.getElementById("unlockedLogFrame").classList.remove("hidden");
+  } else {
+    alert("Invalid key. Access denied.");
+  }
+}
+
+function fetchHistoryRegistry() {
+  const list = document.getElementById("registryDataList");
+  list.innerHTML = "";
+
+  // Example entries
+  const entries = ["SCOM evaluated at 7.5", "EQTY evaluated at 6.8"];
+  entries.forEach(item => {
+    const li = document.createElement("li");
+    li.textContent = item;
+    li.className = "text-slate-300 text-sm py-1";
+    list.appendChild(li);
+  });
+}
+</script>
+
+    </body>
+</html>
